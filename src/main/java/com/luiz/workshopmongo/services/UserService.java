@@ -7,17 +7,27 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.luiz.workshopmongo.domain.User;
+import com.luiz.workshopmongo.repository.UserRepository;
+import com.luiz.workshopmongo.services.exception.ObjectNotFoundException;
 
 @Service
 public class UserService {
 
     
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private UserRepository repo;
 
     public List<User> findAll() {
-        return mongoTemplate.findAll(User.class, "user");
+        return repo.findAll();
     }
+
+    public User findById(String id) {
+    return repo.findById(id)
+        .orElseThrow(() -> 
+            new ObjectNotFoundException("Objeto não encontrado! Id: " + id)
+        );
+}
+
 
     
 }
