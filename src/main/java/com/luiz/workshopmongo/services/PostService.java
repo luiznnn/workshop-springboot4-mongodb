@@ -17,12 +17,11 @@ public class PostService {
 
     public Post findById(String id) {
         return repo.findById(id)
-            .orElseThrow(() ->
-                new ObjectNotFoundException("Objeto não encontrado! Id: " + id)
-            );
+                .orElseThrow(() ->
+                        new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
     }
 
-    public List<Post> findByTitle(String text){
+    public List<Post> findByTitle(String text) {
         return repo.findByTitleContainingIgnoreCase(text);
     }
 }
